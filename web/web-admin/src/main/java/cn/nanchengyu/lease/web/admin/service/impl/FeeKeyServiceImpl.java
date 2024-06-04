@@ -4,8 +4,12 @@ package cn.nanchengyu.lease.web.admin.service.impl;
 import cn.nanchengyu.lease.model.entity.FeeKey;
 import cn.nanchengyu.lease.web.admin.mapper.FeeKeyMapper;
 import cn.nanchengyu.lease.web.admin.service.FeeKeyService;
+import cn.nanchengyu.lease.web.admin.vo.fee.FeeKeyVo;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
 * @author liubo
@@ -15,7 +19,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class FeeKeyServiceImpl extends ServiceImpl<FeeKeyMapper, FeeKey>
     implements FeeKeyService {
+    @Autowired
+    private FeeKeyMapper feeKeyMapper;
+    @Override
+    public List<FeeKeyVo> feeInfoList() {
 
+        return feeKeyMapper.feeInfoList();
+    }
 }
 
 

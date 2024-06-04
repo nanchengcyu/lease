@@ -2,6 +2,7 @@ package cn.nanchengyu.lease.web.admin.service;
 
 
 import cn.nanchengyu.lease.model.entity.FeeKey;
+import cn.nanchengyu.lease.web.admin.vo.fee.FeeKeyVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -13,4 +14,5 @@ import java.util.List;
 */
 public interface FeeKeyService extends IService<FeeKey> {
 
+    List<FeeKeyVo> feeInfoList();
 }
