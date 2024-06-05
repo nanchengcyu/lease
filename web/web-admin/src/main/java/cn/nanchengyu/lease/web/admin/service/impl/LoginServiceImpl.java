@@ -4,8 +4,10 @@ package cn.nanchengyu.lease.web.admin.service.impl;
 import cn.nanchengyu.lease.common.constant.RedisConstant;
 import cn.nanchengyu.lease.common.exception.LeaseException;
 import cn.nanchengyu.lease.common.result.ResultCodeEnum;
+import cn.nanchengyu.lease.common.utils.JwtUtil;
 import cn.nanchengyu.lease.model.entity.SystemUser;
 import cn.nanchengyu.lease.model.enums.BaseStatus;
+import cn.nanchengyu.lease.web.admin.mapper.SystemUserMapper;
 import cn.nanchengyu.lease.web.admin.service.LoginService;
 import cn.nanchengyu.lease.web.admin.service.SystemUserService;
 import cn.nanchengyu.lease.web.admin.vo.login.CaptchaVo;
@@ -24,8 +26,9 @@ import java.util.concurrent.TimeUnit;
 public class LoginServiceImpl implements LoginService {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+
     @Autowired
-    private SystemUserService systemUserService;
+    private SystemUserMapper systemUserMapper;
 
     @Override
     public CaptchaVo getCaptcha() {
@@ -55,9 +58,7 @@ public class LoginServiceImpl implements LoginService {
         }
 
         //账号校验
-        LambdaQueryWrapper<SystemUser> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(SystemUser::getUsername, loginVo.getUsername());
-        SystemUser systemUser = systemUserService.getOne(queryWrapper);
+        SystemUser systemUser = systemUserMapper.selectOneByUsername(loginVo.getUsername());
 
         if (systemUser == null) {
             throw new LeaseException(ResultCodeEnum.ADMIN_ACCOUNT_NOT_EXIST_ERROR);
@@ -72,6 +73,6 @@ public class LoginServiceImpl implements LoginService {
         }
 
 
-        return null;
+        return JwtUtil.createToken(systemUser.getId(), systemUser.getUsername());
     }
 }

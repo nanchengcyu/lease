@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 */
 public interface SystemUserMapper extends BaseMapper<SystemUser> {
 
+    SystemUser selectOneByUsername(String username);
 }
 
 
