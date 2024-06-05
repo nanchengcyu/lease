@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * ClassName: GlobalExceptioonHandler
- * Package: cn.nanchengyu.lease.common.exception
+ * Package: nanchengyu.lease.common.exception
  * Description:
  *
  * @Author 南城余

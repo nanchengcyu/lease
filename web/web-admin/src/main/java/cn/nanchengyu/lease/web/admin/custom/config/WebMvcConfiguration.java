@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * ClassName: WebMvcConfigurattion
- * Package: cn.nanchengyu.lease.web.admin.custom.config
+ * Package: nanchengyu.lease.web.admin.custom.config
  * Description:
  * 自定义StringToItemTypeConverter注册
  * @Author 南城余

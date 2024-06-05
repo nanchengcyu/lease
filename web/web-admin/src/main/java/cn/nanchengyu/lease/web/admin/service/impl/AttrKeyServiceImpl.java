@@ -7,7 +7,6 @@ import cn.nanchengyu.lease.web.admin.service.AttrKeyService;
 import cn.nanchengyu.lease.web.admin.vo.attr.AttrKeyVo;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -12,6 +12,7 @@ import cn.nanchengyu.lease.web.admin.service.LoginService;
 import cn.nanchengyu.lease.web.admin.service.SystemUserService;
 import cn.nanchengyu.lease.web.admin.vo.login.CaptchaVo;
 import cn.nanchengyu.lease.web.admin.vo.login.LoginVo;
+import cn.nanchengyu.lease.web.admin.vo.system.user.SystemUserInfoVo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.wf.captcha.SpecCaptcha;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -74,5 +75,11 @@ public class LoginServiceImpl implements LoginService {
 
 
         return JwtUtil.createToken(systemUser.getId(), systemUser.getUsername());
+    }
+
+    @Override
+    public SystemUserInfoVo getLoginUserInfo(Long userId) {
+        return  systemUserMapper.getLoginUserInfo(userId);
+
     }
 }

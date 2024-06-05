@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  * ClassName: JwtUtil
- * Package: cn.nanchengyu.lease.common.utils
+ * Package: nanchengyu.lease.common.utils
  * Description:
  *
  * @Author 南城余
@@ -21,7 +21,7 @@ public class JwtUtil {
     private static SecretKey secretKey = Keys.hmacShaKeyFor("M0PKKI6pYGVWWfDZw90a0lTpGYX1d4AQ".getBytes());
 
     public static String createToken(Long userId, String username) {
-
+        //Jwt 中存储了userId username
         return Jwts.builder()
                 .setExpiration(new Date(System.currentTimeMillis() + 3600000*24*365L)) //todo 测试 正常为3600000
                 .setSubject("LOGIN_USER")
@@ -31,14 +31,14 @@ public class JwtUtil {
                 .compact();
     }
 
-    public static void parseToken(String token) {
+    public static Claims parseToken(String token) {
         if (token == null) {
             throw new LeaseException(ResultCodeEnum.ADMIN_LOGIN_AUTH);
         }
 
         try {
             JwtParser jwtParser = Jwts.parserBuilder().setSigningKey(secretKey).build();
-            jwtParser.parseClaimsJwt(token);
+            return jwtParser.parseClaimsJws(token).getBody();
         } catch (ExpiredJwtException e) {
             throw new LeaseException(ResultCodeEnum.TOKEN_EXPIRED);
         } catch (JwtException e) {

@@ -19,4 +19,11 @@
         where is_deleted = 0
           and username = #{username}
     </select>
+    <select id="getLoginUserInfo" resultType="cn.nanchengyu.lease.web.admin.vo.system.user.SystemUserInfoVo">
+        select name,
+               avatar_url
+        from lease.system_user
+        where is_deleted = 0
+          and Id = #{userId}
+    </select>
 </mapper>

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * ClassName: StringToItemTypeConverter
- * Package: cn.nanchengyu.lease.web.admin.custom.converter
+ * Package: nanchengyu.lease.web.admin.custom.converter
  * Description:
  * 自定义类型转换器
  *

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * ClassName: StringToBaseConverterFactory
- * Package: cn.nanchengyu.lease.web.admin.custom.converter
+ * Package: nanchengyu.lease.web.admin.custom.converter
  * Description:
  *
  * @Author 南城余

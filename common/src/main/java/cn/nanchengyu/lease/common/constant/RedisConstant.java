@@ -2,7 +2,7 @@ package cn.nanchengyu.lease.common.constant;
 
 /**
  * ClassName: RedisConstant
- * Package: cn.nanchengyu.lease.common.constant
+ * Package: nanchengyu.lease.common.constant
  * Description:
  *
  * @Author 南城余

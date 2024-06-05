@@ -1,11 +1,15 @@
 package cn.nanchengyu.lease.web.admin.controller.login;
 
 
+import cn.nanchengyu.lease.common.login.LoginUserHolder;
 import cn.nanchengyu.lease.common.result.Result;
+import cn.nanchengyu.lease.common.utils.JwtUtil;
+import cn.nanchengyu.lease.model.entity.SystemUser;
 import cn.nanchengyu.lease.web.admin.service.LoginService;
 import cn.nanchengyu.lease.web.admin.vo.login.CaptchaVo;
 import cn.nanchengyu.lease.web.admin.vo.login.LoginVo;
 import cn.nanchengyu.lease.web.admin.vo.system.user.SystemUserInfoVo;
+import io.jsonwebtoken.Claims;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +38,8 @@ public class LoginController {
     @Operation(summary = "获取登陆用户个人信息")
     @GetMapping("info")
     public Result<SystemUserInfoVo> info() {
-        return Result.ok();
+        Long userId = LoginUserHolder.getLoginUser().getUserId();
+        SystemUserInfoVo systemUserInfoVo = loginService.getLoginUserInfo(userId);
+        return Result.ok(systemUserInfoVo);
     }
 }

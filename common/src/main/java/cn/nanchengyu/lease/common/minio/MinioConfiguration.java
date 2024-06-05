@@ -2,6 +2,7 @@ package cn.nanchengyu.lease.common.minio;
 
 import io.minio.MinioClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -9,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * ClassName: MinioConfiguration
- * Package: cn.nanchengyu.lease.common.minio
+ * Package: nanchengyu.lease.common.minio
  * Description:
  *
  * @Author 南城余
@@ -19,6 +20,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 //@EnableConfigurationProperties(MinioProperties.class)
 @ConfigurationPropertiesScan("cn.nanchengyu.lease.common.minio")
+@ConditionalOnProperty(name = "minio.endpoint")
 public class MinioConfiguration {
     @Autowired
     private MinioProperties properties;

@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * ClassName: MinioProperties
- * Package: cn.nanchengyu.lease.common.minio
+ * Package: nanchengyu.lease.common.minio
  * Description:
  *
  * @Author 南城余
