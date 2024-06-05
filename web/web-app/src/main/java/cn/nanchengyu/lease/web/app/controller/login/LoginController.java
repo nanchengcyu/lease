@@ -2,27 +2,34 @@ package cn.nanchengyu.lease.web.app.controller.login;
 
 
 import cn.nanchengyu.lease.common.result.Result;
+import cn.nanchengyu.lease.web.app.service.LoginService;
+import cn.nanchengyu.lease.web.app.service.SmsService;
 import cn.nanchengyu.lease.web.app.vo.user.LoginVo;
 import cn.nanchengyu.lease.web.app.vo.user.UserInfoVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "登录管理")
 @RestController
 @RequestMapping("/app/")
 public class LoginController {
+    @Autowired
+    private LoginService service;
 
     @GetMapping("login/getCode")
     @Operation(summary = "获取短信验证码")
     public Result getCode(@RequestParam String phone) {
+        service.getCode(phone);
         return Result.ok();
     }
 
     @PostMapping("login")
     @Operation(summary = "登录")
     public Result<String> login(@RequestBody LoginVo loginVo) {
-        return Result.ok();
+        String token = service.login(loginVo);
+        return Result.ok(token);
     }
 
     @GetMapping("info")
