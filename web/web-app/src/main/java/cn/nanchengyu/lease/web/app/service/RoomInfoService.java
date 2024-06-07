@@ -1,6 +1,10 @@
 package cn.nanchengyu.lease.web.app.service;
 
 import cn.nanchengyu.lease.model.entity.RoomInfo;
+import cn.nanchengyu.lease.web.app.vo.room.RoomItemVo;
+import cn.nanchengyu.lease.web.app.vo.room.RoomQueryVo;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -9,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2023-07-26 11:12:39
 */
 public interface RoomInfoService extends IService<RoomInfo> {
+    IPage<RoomItemVo> pageItem(Page<RoomItemVo> page, RoomQueryVo queryVo);
 }

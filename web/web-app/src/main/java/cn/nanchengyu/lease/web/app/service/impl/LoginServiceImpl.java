@@ -11,6 +11,7 @@ import cn.nanchengyu.lease.web.app.mapper.UserInfoMapper;
 import cn.nanchengyu.lease.web.app.service.LoginService;
 import cn.nanchengyu.lease.web.app.service.SmsService;
 import cn.nanchengyu.lease.web.app.vo.user.LoginVo;
+import cn.nanchengyu.lease.web.app.vo.user.UserInfoVo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -37,7 +38,7 @@ public class LoginServiceImpl implements LoginService {
         Boolean hasKey = stringRedisTemplate.hasKey(key);
         if (hasKey) {
             Long ttl = stringRedisTemplate.getExpire(key, TimeUnit.SECONDS);
-            if (RedisConstant.APP_LOGIN_CODE_RESEND_TIME_SEC - ttl < RedisConstant.APP_LOGIN_CODE_RESEND_TIME_SEC){
+            if (RedisConstant.APP_LOGIN_CODE_RESEND_TIME_SEC - ttl < RedisConstant.APP_LOGIN_CODE_RESEND_TIME_SEC) {
                 throw new LeaseException(ResultCodeEnum.APP_SEND_SMS_TOO_OFTEN);
             }
 
@@ -77,7 +78,7 @@ public class LoginServiceImpl implements LoginService {
             userInfo.setNickname("用户" + loginVo.getPhone());
             userInfo.setStatus(BaseStatus.ENABLE);
             userInfoMapper.insert(userInfo);
-        }else {
+        } else {
             //账号是否禁用
             if (userInfo.getStatus() == BaseStatus.DISABLE) {
                 throw new LeaseException(ResultCodeEnum.APP_ACCOUNT_DISABLED_ERROR);
@@ -86,5 +87,11 @@ public class LoginServiceImpl implements LoginService {
         }
 
         return JwtUtil.createToken(userInfo.getId(), userInfo.getPhone());
+    }
+
+    @Override
+    public UserInfoVo getLoginUserById(Long userId) {
+        UserInfo userInfo = userInfoMapper.selectById(userId);
+        return new UserInfoVo(userInfo.getNickname(), userInfo.getAvatarUrl());
     }
 }
