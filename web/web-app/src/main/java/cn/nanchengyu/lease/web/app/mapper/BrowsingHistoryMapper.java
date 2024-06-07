@@ -1,8 +1,10 @@
 package cn.nanchengyu.lease.web.app.mapper;
 
 import cn.nanchengyu.lease.model.entity.BrowsingHistory;
+import cn.nanchengyu.lease.web.app.vo.history.HistoryItemVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 /**
 * @author liubo
@@ -12,6 +14,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 */
 public interface BrowsingHistoryMapper extends BaseMapper<BrowsingHistory> {
 
+    IPage<HistoryItemVo> pageItem(Page<HistoryItemVo> page, Long userId);
 }
 
 

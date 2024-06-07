@@ -1,6 +1,7 @@
 package cn.nanchengyu.lease.web.app.controller.room;
 
 
+import cn.nanchengyu.lease.common.login.LoginUserHolder;
 import cn.nanchengyu.lease.common.result.Result;
 import cn.nanchengyu.lease.web.app.service.RoomInfoService;
 import cn.nanchengyu.lease.web.app.vo.room.RoomDetailVo;
@@ -27,7 +28,7 @@ public class RoomController {
     @GetMapping("pageItem")
     public Result<IPage<RoomItemVo>> pageItem(@RequestParam long current, @RequestParam long size, RoomQueryVo queryVo) {
         Page<RoomItemVo> page = new Page<>(current, size);
-        IPage<RoomItemVo> result = service.pageItem(page,queryVo);
+        IPage<RoomItemVo> result = service.pageItem(page, queryVo);
 
         return Result.ok(result);
     }
@@ -35,12 +36,17 @@ public class RoomController {
     @Operation(summary = "根据id获取房间的详细信息")
     @GetMapping("getDetailById")
     public Result<RoomDetailVo> getDetailById(@RequestParam Long id) {
+        Long userId = LoginUserHolder.getLoginUser().getUserId();
+
+        service.saveHistory(userId,id);
         return Result.ok();
     }
 
     @Operation(summary = "根据公寓id分页查询房间列表")
     @GetMapping("pageItemByApartmentId")
     public Result<IPage<RoomItemVo>> pageItemByApartmentId(@RequestParam long current, @RequestParam long size, @RequestParam Long id) {
-        return Result.ok();
+        Page<RoomItemVo> page = new Page<>(current, size);
+        IPage<RoomItemVo> result = service.pageItemByApartmentId(page,id);
+        return Result.ok(result);
     }
 }
