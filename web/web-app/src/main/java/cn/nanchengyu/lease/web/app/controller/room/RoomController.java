@@ -3,6 +3,7 @@ package cn.nanchengyu.lease.web.app.controller.room;
 
 import cn.nanchengyu.lease.common.login.LoginUserHolder;
 import cn.nanchengyu.lease.common.result.Result;
+import cn.nanchengyu.lease.model.entity.RoomInfo;
 import cn.nanchengyu.lease.web.app.service.RoomInfoService;
 import cn.nanchengyu.lease.web.app.vo.room.RoomDetailVo;
 import cn.nanchengyu.lease.web.app.vo.room.RoomItemVo;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @Tag(name = "房间信息")
 @RestController
@@ -36,10 +39,11 @@ public class RoomController {
     @Operation(summary = "根据id获取房间的详细信息")
     @GetMapping("getDetailById")
     public Result<RoomDetailVo> getDetailById(@RequestParam Long id) {
+        RoomDetailVo roomDetailVo = service.getDetailById(id);
         Long userId = LoginUserHolder.getLoginUser().getUserId();
 
         service.saveHistory(userId,id);
-        return Result.ok();
+        return Result.ok(roomDetailVo);
     }
 
     @Operation(summary = "根据公寓id分页查询房间列表")

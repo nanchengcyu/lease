@@ -1,6 +1,7 @@
 package cn.nanchengyu.lease.web.admin.controller.apartment;
 
 
+import cn.nanchengyu.lease.common.constant.RedisConstant;
 import cn.nanchengyu.lease.common.result.Result;
 import cn.nanchengyu.lease.model.entity.RoomInfo;
 import cn.nanchengyu.lease.model.enums.ReleaseStatus;
@@ -11,6 +12,8 @@ import cn.nanchengyu.lease.web.admin.vo.room.RoomSubmitVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,10 +22,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/room")
 public class RoomController {
-
+    @Autowired
+    private RedisTemplate<String, Object> template;
     @Operation(summary = "保存或更新房间信息")
     @PostMapping("saveOrUpdate")
     public Result saveOrUpdate(@RequestBody RoomSubmitVo roomSubmitVo) {
+        //删除缓存 逻辑应该写到Service中 此处省略
+        String key = RedisConstant.APP_ROOM_PREFIX + new RoomSubmitVo().getId();
+        template.delete(key);
         return Result.ok();
     }
 
@@ -41,6 +48,8 @@ public class RoomController {
     @Operation(summary = "根据id删除房间信息")
     @DeleteMapping("removeById")
     public Result removeById(@RequestParam Long id) {
+        String key = RedisConstant.APP_ROOM_PREFIX + id;
+        template.delete(key);
         return Result.ok();
     }
 

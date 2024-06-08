@@ -1,12 +1,15 @@
 package cn.nanchengyu.lease.web.app.controller.agreement;
 
+import cn.nanchengyu.lease.common.login.LoginUserHolder;
 import cn.nanchengyu.lease.common.result.Result;
 import cn.nanchengyu.lease.model.entity.LeaseAgreement;
 import cn.nanchengyu.lease.model.enums.LeaseStatus;
+import cn.nanchengyu.lease.web.app.service.LeaseAgreementService;
 import cn.nanchengyu.lease.web.app.vo.agreement.AgreementDetailVo;
 import cn.nanchengyu.lease.web.app.vo.agreement.AgreementItemVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,11 +18,15 @@ import java.util.List;
 @RequestMapping("/app/agreement")
 @Tag(name = "租约信息")
 public class LeaseAgreementController {
+    @Autowired
+    private LeaseAgreementService leaseAgreementService;
 
     @Operation(summary = "获取个人租约基本信息列表")
     @GetMapping("listItem")
     public Result<List<AgreementItemVo>> listItem() {
-        return Result.ok();
+        String phone = LoginUserHolder.getLoginUser().getUsername();
+        List<AgreementItemVo> list = leaseAgreementService.listItemByPhone(phone);
+        return Result.ok(list);
     }
 
     @Operation(summary = "根据id获取租约详细信息")
