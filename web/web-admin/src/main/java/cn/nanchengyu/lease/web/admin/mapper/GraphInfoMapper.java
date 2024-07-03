@@ -2,6 +2,8 @@ package cn.nanchengyu.lease.web.admin.mapper;
 
 
 import cn.nanchengyu.lease.model.entity.GraphInfo;
+import cn.nanchengyu.lease.model.enums.ItemType;
+import cn.nanchengyu.lease.web.admin.vo.graph.GraphVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.List;
@@ -14,6 +16,7 @@ import java.util.List;
 */
 public interface GraphInfoMapper extends BaseMapper<GraphInfo> {
 
+    List<GraphVo> selectListByItemTypeAndId(ItemType itemType, Long itemId);
 }
 
 
